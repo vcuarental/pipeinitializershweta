@@ -1,0 +1,54 @@
+<template>
+    <div class="items-section-content">
+        <div class="slds-var-p-around_small">
+            <div class="slds-grid slds-gutters slds-m-bottom_small">
+                <div class="slds-col slds-size_1-of-4">
+                    <lightning-input
+                        type="search"
+                        label="Search by Label"
+                        value={searchTerm}
+                        onchange={handleSearchChange}
+                        placeholder="Search..."
+                    ></lightning-input>
+                </div>
+                <div class="slds-col slds-size_1-of-4">
+                    <lightning-combobox
+                        label="Last Modified Date"
+                        value={selectedLastModifiedDate}
+                        options={lastModifiedDateOptions}
+                        onchange={handleLastModifiedDateChange}
+                        placeholder="All Dates"
+                    ></lightning-combobox>
+                </div>
+                <div class="slds-col slds-size_1-of-4">
+                    <lightning-combobox
+                        label="Last Modified By"
+                        value={selectedLastModifiedBy}
+                        options={lastModifiedByOptions}
+                        onchange={handleLastModifiedByChange}
+                        placeholder="All Users"
+                    ></lightning-combobox>
+                </div>
+                <div class="slds-col slds-size_1-of-4">
+                    <lightning-combobox
+                        label="Status"
+                        value={selectedStatus}
+                        options={statusOptions}
+                        onchange={handleStatusChange}
+                        placeholder="All Statuses"
+                    ></lightning-combobox>
+                </div>
+            </div>
+            <div style="height:350px; max-height: 350px; overflow-y: auto;">
+                <c-rca-datatable
+                    key-field="value"
+                    data={filteredItems}
+                    columns={columns}
+                    hide-table-header="true"
+                    selected-rows={selectedRowKeys}
+                    onrowselection={handleRowSelection}
+                ></c-rca-datatable>
+            </div>
+        </div>
+    </div>
+</template>

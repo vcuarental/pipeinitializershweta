@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>copadoccmint__Exclude_from_su__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Make this checkbox checked if you don&apos;t want this field to be updated from third party platform.</description>
+    <inlineHelpText>Make this checkbox checked if you don&apos;t want this field to be updated from third party platform.</inlineHelpText>
+    <label>Exclude from Salesforce update</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,12 @@
+.slds-table tbody tr {
+    height: 50px;
+}
+
+.slds-table,
+.slds-table thead,
+.slds-table tbody,
+.slds-table tr,
+.slds-table th,
+.slds-table td {
+    border: none !important;
+}

@@ -1,0 +1,93 @@
+<template>
+    <div class="mainModalBody">
+        <p class="slds-text-heading_medium slds-var-m-bottom_medium">
+            <c-rca-cds-icon icon-name="copado:MultipleCubes" icon-size="small" class="cds-icon"></c-rca-cds-icon>
+            Revenue Cloud Deployment Configuration
+        </p>
+        <!-- Progress Message -->
+        <template lwc:if={showProgressMessage}>
+            <div class="slds-notify slds-notify_alert slds-theme_info slds-var-m-bottom_small" role="alert" style="position: relative; z-index: 9999;">
+                <span class="slds-assistive-text">info</span>
+                <span class="slds-icon_container slds-icon-utility-info slds-var-m-right_x-small" title="Progress information">
+                    <lightning-icon icon-name="utility:info" variant="inverse"></lightning-icon>
+                </span>
+                <h2>{progressMessage}</h2>
+            </div>
+        </template>
+        <template lwc:if={isComponentReady}>
+            <div class="slds-is-relative">
+                <template lwc:if={showSpinner}>
+                    <lightning-spinner alternative-text="Loading / refreshing items" size="medium"></lightning-spinner>
+                </template>
+            <div class="slds-grid slds-wrap slds-gutters">
+                <div class="slds-col slds-size_1-of-2">
+                    Target: {targetEnvironmentName} → <c-rca-cds-icon icon-name="copado:ClockClockwise" icon-size="xx-small" class="cds-icon"></c-rca-cds-icon>
+                    Updated: <lightning-formatted-date-time value={lastRefreshDate} month="short" day="numeric" hour="numeric" minute="2-digit" hour12="true"></lightning-formatted-date-time>
+                </div>
+                <div class="slds-col slds-size_1-of-2 slds-text-align_right">
+                    <span class="cds-icon-button slds-var-p-around_small" onclick={handleRefresh}>
+                        <c-rca-cds-icon icon-name="copado:ArrowsClockwise" icon-size="x-small"></c-rca-cds-icon>
+                        <span class="slds-assistive-text">Refresh</span>
+                    </span>
+                </div>
+            </div>
+            <div class="items-section">
+                <div class="items-section-header">
+                    <div class="button-bar no-gutter">
+                        <div class="button-bar-content">
+                            <button class="button-bar-btn is-active" data-section="standard_rules" onclick={handleSectionChange}>
+                                <c-rca-cds-icon icon-name="copado:Book" icon-size="small" class="cds-icon"></c-rca-cds-icon>
+                                    Standard Rules
+                                <lightning-badge label={standardRulesCount}></lightning-badge>
+                            </button>
+                            <button class="button-bar-btn" data-section="advanced_rules" onclick={handleSectionChange}>
+                                <c-rca-cds-icon icon-name="copado:Advanced" icon-size="small" class="cds-icon"></c-rca-cds-icon>
+                                    Advanced Rules
+                                <lightning-badge label={advancedRulesCount}></lightning-badge>
+                            </button>
+                            <button class="button-bar-btn" data-section="automations" onclick={handleSectionChange}>
+                                <c-rca-cds-icon icon-name="copado:CloudArrowUp" icon-size="small" class="cds-icon"></c-rca-cds-icon>
+                                    Automations
+                                <lightning-badge label={automationRulesCount}></lightning-badge>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <template lwc:if={showStandardRules}>
+                    <c-revenue-cloud-configuration-tab 
+                        items={standardRules} 
+                        type="standard"
+                        onselectionchange={handleStandardSelectionChange}>
+                    </c-revenue-cloud-configuration-tab>
+                </template>
+                <template lwc:if={showAdvancedRules}>
+                     <c-revenue-cloud-configuration-tab 
+                        items={advancedRules} 
+                        type="advanced"
+                        onselectionchange={handleAdvancedSelectionChange}>
+                    </c-revenue-cloud-configuration-tab>
+                </template>
+                <template lwc:if={showAutomationRules}>
+                    <c-revenue-cloud-configuration-tab 
+                        items={automationRules} 
+                        type="automation"
+                        onselectionchange={handleAutomationSelectionChange}>
+                    </c-revenue-cloud-configuration-tab>
+                </template>
+            </div>
+            <template lwc:if={showSelectionReadyMessage}>
+                <div class="slds-notify slds-notify_alert slds-theme_info slds-var-m-bottom_small" role="alert" style="position: relative; z-index: 9999;">
+                    <span class="slds-assistive-text">info</span>
+                    <span class="slds-icon_container slds-icon-utility-info slds-var-m-right_x-small" title="Progress information">
+                        <lightning-icon icon-name="utility:info" variant="inverse"></lightning-icon>
+                    </span>
+                    <h2>{selectedItemCount} configuration ready for deployment</h2>
+                </div>
+            </template>
+            <div class="slds-text-align_right">
+                <lightning-button label="Add Changes" onclick={handleAddChanges} disabled={isDisabledAddChanges} class="slds-var-m-top_medium cds-button--brand"></lightning-button>
+            </div>
+            </div>
+        </template>
+    </div>
+</template>
